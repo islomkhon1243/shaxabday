@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>С Днём Рождения, Шахзод!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #ffb6ec, #9ec9ff);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Анимированный фон */
+    .bg-animation {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255,255,255,0.6);
+      animation: floatUp 8s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px 20px;
+    }
+    header h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 28px;
+      color: #fff;
+      text-shadow: 0 0 10px #ff6ec4;
+      margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
+    }
+	header h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 18px;
+      color: #fff;
+      text-shadow: 0 0 10px #ff6ec4;
+      margin-top: 30px;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff6ec4; }
+      to { text-shadow: 0 0 25px #6e9fff; }
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px 40px;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+    .card img {
+      width: 100%;
+      height: 700px;
+      object-fit: cover;
+    }
+    .card h3 {
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+      background: rgba(0,0,0,0.4);
+    }
+
+    /* ===== Сарказм блок ===== */
+    .sarcasm {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .sarcasm h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 22px;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 0 0 10px #000;
+    }
+    .sarcasm-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .sarcasm-card {
+      width: 250px;
+      height: 150px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      position: relative;
+    }
+    .sarcasm-card span {
+      display: block;
+      transform: rotateY(0deg);
+      transition: transform 0.6s;
+    }
+    .sarcasm-card:hover span {
+      transform: rotateY(360deg);
+    }
+	
+	/* Новый блок воспоминаний */
+    .memories { padding: 50px 20px; }
+    .memories h2 {
+      text-align: center; font-family: 'Press Start 2P', cursive;
+      font-size: 22px; margin-bottom: 30px; color: #fff; text-shadow: 0 0 10px #000;
+    }
+    .memories-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px; padding: 0 40px;
+    }
+    .memory-card {
+      background: rgba(255,255,255,0.1); border-radius: 16px;
+      overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .memory-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+    .memory-card img, .memory-card video { width: 100%; height: 200px; object-fit: cover; }
+    .memory-card p { padding: 10px; text-align: center; font-size: 14px; background: rgba(0,0,0,0.4); }
+	
+	/* Lightbox стили */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+  }
+  .lightbox-content img,
+  .lightbox-content video {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  .close {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .close:hover { color: #ff6ec4; }
+  @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Фоновые сердечки -->
+  <div class="bg-animation"></div>
+  
+  <audio id="birthdayAudio" src="music/opening.mp3" preload="auto"></audio>
+
+  <header>
+    <h1 id="birthdayTitle">🎉 Шаха, Шахинина, Шахзода, с 25-летием! 🎉</h1>
+    <p>6 лет дружбы, сотни воспоминаний, и впереди ещё больше!</p>
+	<h2>Что из себя представляет Шаха:</h2>
+  </header>
+
+  <section class="gallery">
+    <div class="card">
+      <img src="images/anime_vibe.jpg" alt="anime girl">
+      <h3>Аниме вайб</h3>
+    </div>
+    <div class="card">
+      <img src="images/cat_girl.jpg" alt="cat girl">
+      <h3>Кошко-девочки</h3>
+    </div>
+    <div class="card">
+      <img src="images/maid_outfit.jpg" alt="maid outfit">
+      <h3>Мейдо стиль</h3>
+    </div>
+    <div class="card">
+      <img src="images/friends.jpg" alt="friends">
+      <h3>Дружба навсегда</h3>
+    </div>
+  </section>
+  
+  <!-- Сарказм Corner -->
+  <section class="sarcasm">
+    <h2>Сарказм Corner</h2>
+    <div class="sarcasm-list" id="sarcasmList"></div>
+  </section>
+  
+   <!-- Галерея воспоминаний -->
+  <section class="memories">
+    <h2>Наши воспоминания</h2>
+    <div class="memories-grid">
+      <div class="memory-card">
+        <img src="images/photo1.jpg" alt="mem1" class="memory-item">
+        <p>Когда мы думали, что будем серьёзными взрослыми… ха-ха, нет.</p>
+      </div>
+      <!-- 
+	  <div class="memory-card">
+        <video src="videos/memory1.mp4" controls></video>
+        <p>Этот момент достоин Оскара за лучший мемный сюжет.</p>
+      </div>
+	  -->
+      <div class="memory-card">
+        <img src="images/photo2.jpg" alt="mem2" class="memory-item">
+        <p>Тот день, когда даже стол был счастливее нас.</p>
+      </div>
+	  <!--
+      <div class="memory-card">
+        <video src="videos/memory2.mp4" controls></video>
+        <p>Хроники эпичной вечеринки: режиссёрская версия.</p>
+      </div>
+	  -->
+	  <div class="memory-card">
+        <img src="images/photo3.jpg" alt="mem2" class="memory-item">
+        <p>Рисковать жизнями ради незабываемых эмоций.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo4.jpg" alt="mem2" class="memory-item">
+        <p>Когда получили бумажные подставки но с таким шумом в Бахчисарае.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo5.jpg" alt="mem2" class="memory-item">
+        <p>Ждали малолетнего умника сдающего тест на проверку ориентации.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo6.jpg" alt="mem2" class="memory-item">
+        <p>Первая встреча в Шыме, за то какая.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo7.jpg" alt="mem2" class="memory-item">
+        <p>Когда удача на твоей стороне.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo8.jpg" alt="mem2" class="memory-item">
+        <p>Редкий кадр: человек впервые получает премию в натуральной валюте..</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo9.jpg" alt="mem2" class="memory-item">
+        <p>Фото сделано за секунду до того, как его приняли за туриста из 2007-го..</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo10.jpg" alt="mem2" class="memory-item">
+        <p>Кадр из нового аниме: ‘Парень, которого предали капли’.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo11.jpg" alt="mem2" class="memory-item">
+        <p>Мама сказала: ‘Учись ради диплома’, а теперь диплом сказал: ‘Удачи искать работу’.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo12.jpg" alt="mem2" class="memory-item">
+        <p>Фотограф сказал: ‘Будь собой’… он и стал.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo13.jpg" alt="mem2" class="memory-item">
+        <p>Фото, где каждый думает: ‘Ну хоть я выгляжу нормально’ — но нет.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo14.jpg" alt="mem2" class="memory-item">
+        <p>Когда камера сказала ‘не сегодня, бро’ и ты поверил.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo15.jpg" alt="mem2" class="memory-item">
+        <p>Собрались командой, но кошельки нас предали.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo16.jpg" alt="mem2" class="memory-item">
+        <p>Когда терминал круче всех твоих навыков в университете.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo17.jpg" alt="mem2" class="memory-item">
+        <p>Военные машины: круто. Я: пытаюсь влезть в кадр, но не очень получается.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo18.jpg" alt="mem2" class="memory-item">
+        <p>Когда почувствовал себя богаче всех друзей… на 5 секунд.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo19.jpg" alt="mem2" class="memory-item">
+        <p>Кубок в руках, а мозги где-то в другом месте.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo20.jpg" alt="mem2" class="memory-item">
+        <p>Фото туриста: кажется, наслаждается видами, а на деле думает про перекус.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo21.jpg" alt="mem2" class="memory-item">
+        <p>Шахзод готов: костюм блестит, а внутренний подросток плачет.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo22.jpg" alt="mem2" class="memory-item">
+        <p>Когда думал, что встретишь королеву жизни, а встретил корову.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo23.jpg" alt="mem2" class="memory-item">
+        <p>Тройка героев, но эпическое приключение только в голове.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo24.jpg" alt="mem2" class="memory-item">
+        <p>Наисчастливейшее фото из Шыма.</p>
+      </div>
+	  <div class="memory-card">
+        <img src="images/photo25.jpg" alt="mem2" class="memory-item">
+        <p>Когда кинули двух друзей и злорадствуют.</p>
+      </div>
+    </div>
+  </section>
+  
+  <div class="lightbox" id="lightbox">
+	  <span class="close">&times;</span>
+	  <div class="lightbox-content"></div>
+	</div>
+
+  <footer>
+    Сделано с ❤️ специально для моего брата
+  </footer>
+
+  <script>
+  
+	const title = document.getElementById('birthdayTitle');
+	  const audio = document.getElementById('birthdayAudio');
+
+	  title.addEventListener('click', () => {
+		if (audio.paused) {
+		  audio.play();
+		} else {
+		  audio.pause();
+		  audio.currentTime = 0; // чтобы можно было заново кликнуть
+		}
+	  });
+    // генерим сердечки
+    const bg = document.querySelector('.bg-animation');
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '♥';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      bg.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createHeart, 500);
+	
+	// Сарказм фразы
+    const sarcasmPhrases = [
+      "25 лет? Поздравляю, теперь твой организм официально в разделе 'б/у'.",
+      "С днюхой! Ты уже слишком стар для ТикТока, но ещё слишком молод для пенсионного.",
+      "25 лет — это когда 'ещё рано' и 'уже поздно' звучат одинаково.",
+      "Шахзод, будь спокоен: кризис среднего возраста уже стоит в очереди.",
+      "Поздравляю! Теперь твоя главная суперсила — это болеть после одного бокала.",
+      "25 — возраст, когда ты ещё молодой, но уже начинаешь говорить 'в наше время'.",
+      "С днюхой! Теперь ты официально кандидат на фразу 'раньше трава была зеленее'.",
+      "25 лет — то время, когда понимаешь: твои мемы уже 'олдскул'.",
+      "Поздравляю! Ты пережил четверть века и всё ещё не стал миллионером, норм.",
+      "С днюхой! Твои волосы ещё на месте, но время идёт, бро.",
+      "25 — это когда праздники уже утомляют больше, чем работа.",
+      "Шахзод, теперь твои шутки стареют быстрее, чем телефоны Samsung.",
+      "Поздравляю! 25 — идеальный возраст, чтобы делать вид, что ты взрослый.",
+      "С днюхой! Твоя молодость официально вышла в архив.",
+      "25 — возраст, когда студенческие долги ещё живы, а мечты уже мертвы.",
+      "Поздравляю! Ты ближе к ипотеке, чем к выпускному.",
+      "25 лет — это как 18, только с усталостью в глазах.",
+      "Шахзод, радуйся: в 25 ещё можно всю ночь не спать… и два дня потом умирать.",
+      "С днюхой! Пусть у тебя будет столько счастья, сколько багов в твоём коде.",
+      "25 лет — это не много. Просто вспомни, сколько у тебя было сил в 18 и поплачь.",
+      "Поздравляю! Твои планы на жизнь обновились: теперь это 'выжить'.",
+      "С днюхой! 25 — когда твой холодильник важнее, чем твоя популярность.",
+      "25 — это когда ты уже не веришь в Деда Мороза, но веришь в налоговую.",
+      "Поздравляю! В 25 ты всё ещё можешь смотреть аниме и делать вид, что это исследование культуры.",
+      "Шахзод, 25 — это уровень: 'ещё не женат, но уже спрашивают, когда свадьба'."
+    ];
+
+    const sarcasmList = document.getElementById('sarcasmList');
+    sarcasmPhrases.forEach(text => {
+      const card = document.createElement('div');
+      card.classList.add('sarcasm-card');
+      card.innerHTML = `<span>${text}</span>`;
+      sarcasmList.appendChild(card);
+    });
+	
+	// Lightbox
+	  const lightbox = document.getElementById('lightbox');
+	  const lightboxContent = lightbox.querySelector('.lightbox-content');
+	  const closeBtn = lightbox.querySelector('.close');
+
+	  document.querySelectorAll('.memory-item').forEach(item => {
+		item.addEventListener('click', () => {
+		  lightbox.style.display = 'flex';
+		  lightboxContent.innerHTML = ''; // очистить
+		  if (item.tagName === 'IMG') {
+			const img = document.createElement('img');
+			img.src = item.src;
+			lightboxContent.appendChild(img);
+		  } else if (item.tagName === 'VIDEO') {
+			const video = document.createElement('video');
+			video.src = item.src;
+			video.controls = true;
+			video.autoplay = true;
+			lightboxContent.appendChild(video);
+		  }
+		});
+	  });
+
+	  // Закрытие
+	  closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
+	  lightbox.addEventListener('click', (e) => {
+		if (e.target === lightbox) lightbox.style.display = 'none';
+	  });
+  </script>
+</body>
+</html>
