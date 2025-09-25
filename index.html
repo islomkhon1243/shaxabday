@@ -69,23 +69,31 @@
       gap: 20px;
       padding: 20px 40px;
     }
-    .card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
+    /* Живость карточек */
+	.card {
+	  background: rgba(255,255,255,0.1);
+	  border-radius: 16px;
+	  overflow: hidden;
+	  position: relative;
+	  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+	  transition: transform 0.4s ease, box-shadow 0.4s ease;
+	  animation: float 6s ease-in-out infinite;
+	  transform-style: preserve-3d;
+	}
+	.card:hover {
+	  transform: rotateY(6deg) rotateX(3deg) scale(1.05);
+	  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+	}
     .card img {
-      width: 100%;
-      height: 700px;
-      object-fit: cover;
-    }
+	  width: 100%;
+	  height: 700px;
+	  object-fit: cover;
+	  animation: imageMove 12s ease-in-out infinite;
+	  transition: transform 0.3s;
+	}
+	.card:hover img {
+	  transform: scale(1.12);
+}
     .card h3 {
       text-align: center;
       padding: 15px;
@@ -147,12 +155,30 @@
       gap: 25px; padding: 0 40px;
     }
     .memory-card {
-      background: rgba(255,255,255,0.1); border-radius: 16px;
-      overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .memory-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-    .memory-card img, .memory-card video { width: 100%; height: 200px; object-fit: cover; }
+	  background: rgba(255,255,255,0.08);
+	  border-radius: 14px;
+	  overflow: hidden;
+	  position: relative;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+	  animation: memoryFloat 7s ease-in-out infinite;
+	  transition: transform 0.4s ease, box-shadow 0.4s ease;
+	}
+	.memory-card:hover {
+	  transform: scale(1.05) rotate(1deg);
+	  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+	}
+    .memory-card img,
+	.memory-card video {
+	  width: 100%;
+	  height: 200px;
+	  object-fit: cover;
+	  animation: memoryPulse 10s ease-in-out infinite;
+	  transition: transform 0.3s;
+	}
+	.memory-card:hover img,
+	.memory-card:hover video {
+	  transform: scale(1.08);
+	}
     .memory-card p { padding: 10px; text-align: center; font-size: 14px; background: rgba(0,0,0,0.4); }
 	
 	/* Lightbox стили */
@@ -191,39 +217,49 @@
       font-size: 14px;
       background: rgba(0,0,0,0.2);
     }
+	
+	.music-hint {
+      font-size: 16px;
+      color: #fff;
+      margin-top: 10px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #000;
+      transition: transform 0.2s;
+    }
+    .music-hint:hover { transform: scale(1.1); color: #ffe066; }
+	
+	/* Анимация для карточек */
+	@keyframes float {
+	  0%   { transform: translateY(0px) rotate(0deg); }
+	  25%  { transform: translateY(-6px) rotate(-1deg); }
+	  50%  { transform: translateY(0px) rotate(0deg); }
+	  75%  { transform: translateY(6px) rotate(1deg); }
+	  100% { transform: translateY(0px) rotate(0deg); }
+	}
 
-  /* Сброс для маленьких экранов */
-@media (max-width: 768px) {
-  header h1 { font-size: 22px; padding: 0 10px; }
-  header h2 { font-size: 16px; }
-  
-  .gallery, .memories-grid, .sarcasm-list {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    padding: 15px 20px;
-  }
-  
-  .card img { height: 300px; }
-  .memory-card img, .memory-card video { height: 150px; }
-  .sarcasm-card { width: 180px; height: 120px; font-size: 14px; padding: 10px; }
-  
-  footer { font-size: 12px; padding: 30px 10px; }
-}
+	/* Анимация для картинок */
+	@keyframes imageMove {
+	  0%   { transform: scale(1.05) translate(0px, 0px); }
+	  25%  { transform: scale(1.08) translate(5px, -5px); }
+	  50%  { transform: scale(1.05) translate(0px, 0px); }
+	  75%  { transform: scale(1.08) translate(-5px, 5px); }
+	  100% { transform: scale(1.05) translate(0px, 0px); }
+	}
+	
+	@keyframes memoryFloat {
+	  0%   { transform: translateY(0px); }
+	  50%  { transform: translateY(-8px); }
+	  100% { transform: translateY(0px); }
+	}
 
-/* Очень маленькие экраны (телефоны) */
-@media (max-width: 480px) {
-  header h1 { font-size: 18px; }
-  header h2 { font-size: 14px; }
-  
-  .card img { height: 250px; }
-  .memory-card img, .memory-card video { height: 120px; }
-  .sarcasm-card { width: 150px; height: 100px; font-size: 12px; }
-  
-  .gallery, .memories-grid, .sarcasm-list {
-    gap: 10px;
-    padding: 10px;
-  }
-}
+	/* Анимация пульсации фото/видео */
+	@keyframes memoryPulse {
+	  0%   { transform: scale(1) rotate(0deg); }
+	  25%  { transform: scale(1.03) rotate(-1deg); }
+	  50%  { transform: scale(1) rotate(0deg); }
+	  75%  { transform: scale(1.03) rotate(1deg); }
+	  100% { transform: scale(1) rotate(0deg); }
+	}
   </style>
 </head>
 <body>
@@ -234,9 +270,11 @@
   <audio id="birthdayAudio" src="music/opening.mp3" preload="auto"></audio>
 
   <header>
-    <h1 id="birthdayTitle">🎉 Шаха, Шахинина, Шахзода, с 25-летием! 🎉</h1>
+    <h1>🎉 Шаха, Шахинина, Шахзода, с 25-летием! 🎉</h1>
     <p>6 лет дружбы, сотни воспоминаний, и впереди ещё больше!</p>
-	<h2>Что из себя представляет Шаха:</h2>
+    <!-- Подпись для музыки -->
+    <div id="musicHint" class="music-hint">🎵 Нажми сюда, чтобы включить песню 🎵</div>
+    <h2>Что из себя представляет Шаха:</h2>
   </header>
 
   <section class="gallery">
@@ -394,17 +432,20 @@
 
   <script>
   
-	const title = document.getElementById('birthdayTitle');
-	  const audio = document.getElementById('birthdayAudio');
+	const audio = document.getElementById('birthdayAudio');
+    const musicHint = document.getElementById('musicHint');
 
-	  title.addEventListener('click', () => {
-		if (audio.paused) {
-		  audio.play();
-		} else {
-		  audio.pause();
-		  audio.currentTime = 0; // чтобы можно было заново кликнуть
-		}
-	  });
+    musicHint.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        musicHint.textContent = "⏸ Нажми сюда, чтобы остановить песню";
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        musicHint.textContent = "🎵 Нажми сюда, чтобы включить песню 🎵";
+      }
+    });
+	
     // генерим сердечки
     const bg = document.querySelector('.bg-animation');
     function createHeart() {
@@ -487,4 +528,3 @@
   </script>
 </body>
 </html>
-
