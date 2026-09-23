@@ -6,46 +6,55 @@
   <meta name="theme-color" content="#050509" />
   <title>Shaxa // LEVEL 26</title>
   <meta name="description" content="Персональный birthday experience для Шахи. Level 26 unlocked." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shaxa // LEVEL 26" />
+  <meta property="og:description" content="История дружбы, легендарные достижения и новый уровень. С днём рождения, Шаха!" />
+  <meta property="og:image" content="assets/share-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2.1" />
 </head>
-<body class="is-locked" data-mode="roast">
+<body data-mode="roast">
   <div class="noise" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
 
-  <div class="boot" id="boot">
+  <div class="boot" id="boot" role="dialog" aria-modal="true" aria-label="Вход в Birthday OS">
     <div class="boot-grid"></div>
     <div class="boot-card">
       <div class="boot-label"><span class="pulse"></span> BIRTHDAY OS / BUILD 26.09.2026</div>
       <h1>Shaxa<br><span>// LEVEL 26</span></h1>
       <div class="boot-log" id="bootLog" aria-live="polite"></div>
       <button class="enter-btn magnetic" id="enterBtn" type="button">
-        <span>ENTER SYSTEM</span>
+        <span>ВОЙТИ БЕЗ ЗВУКА</span>
       </button>
+      <button class="enter-btn enter-sound" id="enterSoundBtn" type="button">ВОЙТИ С МУЗЫКОЙ</button>
+      <p class="boot-hint">Звук можно переключить в любой момент.</p>
     </div>
   </div>
 
+  <a class="skip-link" href="#mainContent">К содержимому</a>
   <header class="topbar">
     <a class="brand" href="#hero" aria-label="Shaxa Level 26">S//26</a>
+    <nav class="chapter-nav" aria-label="Разделы поздравления"><a href="#origin">История</a><a href="#birthdayDrop">Подарок</a><a href="#message">Поздравление</a></nav>
     <div class="top-actions">
-      <button class="mode-switch magnetic" id="modeSwitch" type="button" aria-label="Переключить режим текста">
+      <button class="mode-switch magnetic" id="modeSwitch" type="button" aria-label="Уважительный режим" aria-pressed="false">
         <span class="mode-dot"></span><span id="modeLabel">ROAST MODE</span>
       </button>
-      <button class="music-btn magnetic" id="musicBtn" type="button" aria-label="Музыка">
+      <button class="music-btn magnetic" id="musicBtn" type="button" aria-label="Музыка" aria-pressed="false">
         <span class="eq"><i></i><i></i><i></i></span><span id="musicLabel">MUSIC OFF</span>
       </button>
     </div>
   </header>
 
-  <main>
+  <main id="mainContent" tabindex="-1">
     <section class="hero" id="hero">
       <div class="hero-video-wrap" id="heroScene">
-        <video id="heroVideo" class="hero-video" muted playsinline preload="auto" poster="video_contact.jpg">
-          <source src="assets/shaxa_animation.mp4" type="video/mp4" />
+        <video id="heroVideo" class="hero-video" muted playsinline preload="none" poster="video_contact.jpg">
+          <source data-src="assets/shaxa_animation.mp4" type="video/mp4" />
         </video>
         <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
         <div class="hero-shade"></div>
@@ -56,7 +65,7 @@
 
       <div class="hero-ui">
         <div class="hero-kicker reveal">SUBJECT_001 / BIRTHDAY PROTOCOL</div>
-        <h2 class="hero-title reveal">Shaxa <span>v26.0</span></h2>
+        <h1 class="hero-title reveal" tabindex="-1">Shaxa <span>v26.0</span></h1>
         <p class="hero-sub reveal" data-roast="26 лет. Каким-то чудом система всё ещё не требует полного переустановления." data-respect="26 лет. Новая версия человека, с которым уже слишком много общей истории.">26 лет. Каким-то чудом система всё ещё не требует полного переустановления.</p>
         <div class="hero-meta reveal">
           <span>26.09.2000</span><i></i><span>KENTAU → ALMATY</span><i></i><span>STATUS: ONLINE</span>
@@ -77,7 +86,7 @@
         <div class="profile-card glass tilt-card">
           <div class="profile-id">PLAYER_ID: Shaxa</div>
           <div class="avatar-placeholder profile-visual">
-            <img src="assets/generated/player-profile.jpg" alt="Шаха — player profile" loading="lazy">
+            <img src="assets/generated/player-profile.jpg" alt="Шаха — player profile" loading="lazy" decoding="async">
             <div class="profile-scan"></div>
             <div class="profile-lock"><span>IDENTITY LOCK</span><b>99.8%</b></div>
           </div>
@@ -102,7 +111,7 @@
         <h2>Spawn point:<br><em>Кентау.</em></h2>
       </div>
       <div class="origin-art reveal-media">
-        <img src="assets/generated/origin-kentau.jpg" alt="Origin — Kentau" loading="lazy">
+        <img src="assets/generated/origin-kentau.jpg" alt="Origin — Kentau" loading="lazy" decoding="async">
         <div class="origin-art-ui"><span>SPAWN POINT</span><b>KENTAU // 2000</b></div>
       </div>
       <div class="route" aria-label="Хронология Шахи">
@@ -148,7 +157,7 @@
 
     <section class="headphones section" id="headphones">
       <div class="warning-card">
-        <div class="headphone-portrait"><img src="assets/generated/headphones-old.jpg" alt="Легендарные старые наушники" loading="lazy"><span>LEGACY HARDWARE</span></div>
+        <div class="headphone-portrait"><img src="assets/generated/headphones-old.jpg" alt="Легендарные старые наушники" loading="lazy" decoding="async"><span>LEGACY HARDWARE</span></div>
         <div class="warning-icon">!</div>
         <div class="warning-copy">
           <small>CRITICAL HARDWARE ALERT</small>
@@ -166,11 +175,11 @@
         <h2>Every great character<br><em>has an arc.</em></h2>
       </div>
       <div class="arc-strip">
-        <article class="arc-card"><img src="assets/generated/university.jpg" alt="University arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">I</div><div class="arc-copy"><small>2019</small><h3>UNIVERSITY<br>ARC</h3><p>МУИТ. Код. Дедлайны. Бессонница. Начало лора.</p></div></article>
-        <article class="arc-card"><img src="assets/generated/developer.jpg" alt="Developer arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">II</div><div class="arc-copy"><small>??</small><h3>DEVELOPER<br>ARC</h3><p>Гуглить ошибку 40 минут, а потом найти пропущенную запятую.</p></div></article>
-        <article class="arc-card"><img src="assets/generated/kaspi.jpg" alt="Kaspi arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">III</div><div class="arc-copy"><small>NOW</small><h3>KASPI<br>ARC</h3><p>Corporate skin unlocked. Внутри всё тот же человек с мангой.</p></div></article>
-        <article class="arc-card"><img src="assets/generated/marriage.jpg" alt="Marriage arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">IV</div><div class="arc-copy"><small>NEW</small><h3>MARRIAGE<br>ARC</h3><p>Multiplayer mode enabled. Difficulty adjusted automatically.</p></div></article>
-        <article class="arc-card featured"><img src="assets/generated/legendary.jpg" alt="Level 26 arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">V</div><div class="arc-copy"><small>26.09.2026</small><h3>LEVEL 26<br>ARC</h3><p>Новая глава. Старые приколы. Те же ужасные наушники.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/university.jpg" alt="University arc" loading="lazy" decoding="async"><div class="arc-overlay"></div><div class="arc-no">I</div><div class="arc-copy"><small>2019</small><h3>UNIVERSITY<br>ARC</h3><p>МУИТ. Код. Дедлайны. Бессонница. Начало лора.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/developer.jpg" alt="Developer arc" loading="lazy" decoding="async"><div class="arc-overlay"></div><div class="arc-no">II</div><div class="arc-copy"><small>??</small><h3>DEVELOPER<br>ARC</h3><p>Гуглить ошибку 40 минут, а потом найти пропущенную запятую.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/kaspi.jpg" alt="Kaspi arc" loading="lazy" decoding="async"><div class="arc-overlay"></div><div class="arc-no">III</div><div class="arc-copy"><small>NOW</small><h3>KASPI<br>ARC</h3><p>Corporate skin unlocked. Внутри всё тот же человек с мангой.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/marriage.jpg" alt="Marriage arc" loading="lazy" decoding="async"><div class="arc-overlay"></div><div class="arc-no">IV</div><div class="arc-copy"><small>NEW</small><h3>MARRIAGE<br>ARC</h3><p>Multiplayer mode enabled. Difficulty adjusted automatically.</p></div></article>
+        <article class="arc-card featured"><img src="assets/generated/legendary.jpg" alt="Level 26 arc" loading="lazy" decoding="async"><div class="arc-overlay"></div><div class="arc-no">V</div><div class="arc-copy"><small>26.09.2026</small><h3>LEVEL 26<br>ARC</h3><p>Новая глава. Старые приколы. Те же ужасные наушники.</p></div></article>
       </div>
     </section>
 
@@ -180,18 +189,18 @@
         <h2>Редкие достижения,<br><em>полученные случайно.</em></h2>
       </div>
       <div class="achievement-grid">
-        <article class="achievement visual-achievement"><img src="assets/generated/iitu.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>LEGENDARY</small><h3>SURVIVED МУИТ</h3><p>Описание засекречено во избежание повторной травмы.</p></div></article>
-        <article class="achievement visual-achievement"><img src="assets/generated/spice.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>EPIC</small><h3>SPICE RESISTANCE</h3><p>Ест вещи, которые нормальный человек сначала проверит на токсичность.</p></div></article>
-        <article class="achievement visual-achievement"><img src="assets/generated/anime.jpg" alt="Anime addiction" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>RARE</small><h3>MANGA DATABASE</h3><p>Знания, которые в резюме почему-то не помещаются.</p></div></article>
-        <article class="achievement visual-achievement"><img src="assets/generated/marriage2.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div>><span></span><div><small>LEGENDARY</small><h3>MARRIED MAN</h3><p>Крупнейшее обновление системы за последние годы.</p></div></article>
-        <article class="achievement visual-achievement locked-achievement"><img src="assets/generated/new-headphones.png" alt="Новые наушники" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>IMPOSSIBLE</small><h3>NEW HEADPHONES</h3><p>До сих пор не разблокировано.</p></div></article>
-        <article class="achievement visual-achievement"><img src="assets/generated/manga.jpeg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>MYTHIC</small><h3>STILL FRIENDS</h3><p>Несмотря на «Нет» в первой же кат-сцене.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/iitu.jpg" alt="Воспоминания о МУИТ" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>LEGENDARY</small><h3>SURVIVED МУИТ</h3><p>Описание засекречено во избежание повторной травмы.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/spice.jpg" alt="Spice resistance" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>EPIC</small><h3>SPICE RESISTANCE</h3><p>Ест вещи, которые нормальный человек сначала проверит на токсичность.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/anime.jpg" alt="Anime addiction" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>RARE</small><h3>MANGA DATABASE</h3><p>Знания, которые в резюме почему-то не помещаются.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/marriage2.jpg" alt="Новая глава — семья" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>LEGENDARY</small><h3>MARRIED MAN</h3><p>Крупнейшее обновление системы за последние годы.</p></div></article>
+        <article class="achievement visual-achievement locked-achievement" id="headphoneAchievement"><img src="assets/generated/new-headphones.webp" alt="Новые наушники" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>IMPOSSIBLE</small><h3>NEW HEADPHONES</h3><p>До сих пор не разблокировано.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/manga.JPEG" alt="История нашей дружбы" loading="lazy" decoding="async"><div class="achievement-shade"></div><span></span><div><small>MYTHIC</small><h3>STILL FRIENDS</h3><p>Несмотря на «Нет» в первой же кат-сцене.</p></div></article>
       </div>
     </section>
 
     <section class="food section" id="food">
       <div class="food-bg-word">EAT</div>
-      <div class="food-character reveal-media"><img src="assets/generated/food.jpg" alt="Shaxa food explorer" loading="lazy"><span>FOOD BOSS // 99.8%</span></div>
+      <div class="food-character reveal-media"><img src="assets/generated/food.jpg" alt="Shaxa food explorer" loading="lazy" decoding="async"><span>FOOD BOSS // 99.8%</span></div>
       <div class="section-head compact">
         <div class="eyebrow">06 / FOOD DATABASE</div>
         <h2>Если выглядит странно,<br>остро и подозрительно — <em>надо попробовать.</em></h2>
@@ -206,7 +215,7 @@
           <button type="button" class="choice magnetic" data-answer="yes">YES</button>
           <button type="button" class="choice magnetic" data-answer="also">ALSO YES</button>
         </div>
-        <div class="food-result" id="foodResult">AI CONFIDENCE: 99.8%</div>
+        <div class="food-result" id="foodResult" role="status">AI CONFIDENCE: 99.8%</div>
       </div>
     </section>
 
@@ -225,27 +234,27 @@
     </section>
 
     <section class="birthday-drop section" id="birthdayDrop">
-      <img class="birthday-confetti" src="assets/generated/confetti.png" alt="" aria-hidden="true">
-      <img class="birthday-balloon balloon-a" src="assets/generated/red-balloon.png" alt="" aria-hidden="true">
-      <img class="birthday-balloon balloon-b" src="assets/generated/red-balloon.png" alt="" aria-hidden="true">
+      <img class="birthday-confetti" src="assets/generated/confetti.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="birthday-balloon balloon-a" src="assets/generated/red-balloon.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="birthday-balloon balloon-b" src="assets/generated/red-balloon.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <div class="birthday-stage">
         <div class="birthday-copy">
           <div class="eyebrow">08 / BIRTHDAY DROP</div>
-          <img class="birthday-name" src="assets/generated/shakhzod.png" alt="Shakhzod" loading="lazy">
+          <img class="birthday-name" src="assets/generated/shakhzod.webp" alt="Shakhzod" loading="lazy" decoding="async">
           <h2>26 YEARS OF<br><em>QUESTIONABLE DECISIONS.</em></h2>
           <p>Раз уж тебе 26, сайт обязан хотя бы попытаться выглядеть как нормальный день рождения.</p>
-          <button class="gift-action magnetic" id="giftAction" type="button">OPEN YOUR “GIFT”</button>
+          <button class="gift-action magnetic" id="giftAction" type="button" aria-controls="birthdayVisual" aria-expanded="false">OPEN YOUR “GIFT”</button>
         </div>
         <div class="birthday-visual" id="birthdayVisual">
-          <img class="birthday-balloons" src="assets/generated/balloons.png" alt="Birthday balloons" loading="lazy">
-          <img class="birthday-26" src="assets/generated/26.png" alt="26" loading="lazy">
-          <img class="birthday-crown" src="assets/generated/crown.png" alt="Birthday crown" loading="lazy">
-          <img class="birthday-gift" id="giftBox" src="assets/generated/giftbox.png" alt="Birthday gift" loading="lazy">
-          <img class="birthday-new-headphones" id="giftHeadphones" src="assets/generated/new-headphones.png" alt="New headphones" loading="lazy">
-          <img class="birthday-cake" src="assets/generated/cake.png" alt="Birthday cake" loading="lazy">
-          <img class="birthday-candles" src="assets/generated/candles.png" alt="26 candles" loading="lazy">
-          <img class="birthday-logo" src="assets/generated/logo.png" alt="Level 26 emblem" loading="lazy">
-          <div class="gift-caption" id="giftCaption"><b>LEGENDARY DROP</b><span>Нажми на подарок. Ну хотя бы виртуальные наушники у тебя будут нормальные.</span></div>
+          <img class="birthday-balloons" src="assets/generated/balloons.webp" alt="Birthday balloons" loading="lazy" decoding="async">
+          <img class="birthday-26" src="assets/generated/26.webp" alt="26" loading="lazy" decoding="async">
+          <img class="birthday-crown" src="assets/generated/crown.webp" alt="Birthday crown" loading="lazy" decoding="async">
+          <img class="birthday-gift" id="giftBox" role="button" tabindex="0" aria-label="Открыть подарок" src="assets/generated/giftbox.webp" alt="Birthday gift" loading="lazy" decoding="async">
+          <img class="birthday-new-headphones" id="giftHeadphones" src="assets/generated/new-headphones.webp" alt="New headphones" loading="lazy" decoding="async">
+          <img class="birthday-cake" src="assets/generated/cake.webp" alt="Birthday cake" loading="lazy" decoding="async">
+          <img class="birthday-candles" src="assets/generated/candles.webp" alt="26 candles" loading="lazy" decoding="async">
+          <img class="birthday-logo" src="assets/generated/logo.webp" alt="Level 26 emblem" loading="lazy" decoding="async">
+          <div class="gift-caption" id="giftCaption" tabindex="-1"><b>LEGENDARY DROP</b><span>Нажми на подарок. Ну хотя бы виртуальные наушники у тебя будут нормальные.</span></div>
         </div>
       </div>
     </section>
@@ -262,13 +271,13 @@
         </div>
         <form class="console-form" id="consoleForm" autocomplete="off">
           <label for="consoleInput">Shaxa@26:~$</label>
-          <input id="consoleInput" name="command" spellcheck="false" autocomplete="off" />
+          <input id="consoleInput" name="command" maxlength="200" placeholder="help" spellcheck="false" autocomplete="off" />
         </form>
       </div>
     </section>
 
     <section class="real-talk section" id="message">
-      <div class="message-art"><img src="assets/generated/manga.jpeg" alt="Shaxa level 26" loading="lazy"></div>
+      <div class="message-art"><img src="assets/generated/manga.JPEG" alt="Shaxa level 26" loading="lazy" decoding="async"></div>
       <div class="message-wrap">
         <div class="eyebrow">10 / UNSCHEDULED SERIOUS MOMENT</div>
         <p class="big-line">Ладно. На несколько секунд без издевательств.</p>
@@ -281,8 +290,8 @@
     </section>
 
     <section class="finale" id="finale">
-      <img class="final-confetti" src="assets/generated/confetti.png" alt="" aria-hidden="true">
-      <img class="final-character" src="assets/generated/legendary.jpg" alt="Shaxa level 26" loading="lazy">
+      <img class="final-confetti" src="assets/generated/confetti.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="final-character" src="assets/generated/legendary.jpg" alt="Shaxa level 26" loading="lazy" decoding="async">
       <div class="final-rings" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="final-content">
         <div class="level-label">SYSTEM UPDATE COMPLETE</div>
@@ -295,19 +304,20 @@
           <p><b>+</b> career</p>
           <p><b>+</b> more food</p>
           <p><b>+</b> more adventures</p>
-          <p><b>−</b> headphone quality remains unchanged</p>
+          <p id="headphonePatch"><b>−</b> headphone quality remains unchanged</p>
         </div>
         <p class="last-line">С днём рождения, брат. ❤️</p>
       </div>
     </section>
   </main>
 
+  <div class="achievement-toast" id="achievementToast" role="status" aria-live="polite"></div>
   <audio id="bgMusic" loop preload="none">
     <source src="assets/music.mp3" type="audio/mpeg" />
   </audio>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=2.1"></script>
 </body>
 </html>

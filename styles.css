@@ -25,7 +25,7 @@ button{color:inherit}
 .cursor-dot,.cursor-ring{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:10100;opacity:0;transform:translate(-50%,-50%)}
 .cursor-dot{width:5px;height:5px;background:#fff;mix-blend-mode:difference}
 .cursor-ring{width:38px;height:38px;border:1px solid rgba(255,255,255,.45);transition:width .2s,height .2s,border-color .2s}
-@media (pointer:fine){.cursor-dot,.cursor-ring{opacity:1}body{cursor:none}a,button,input{cursor:none}}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){.custom-cursor .cursor-dot,.custom-cursor .cursor-ring{opacity:1}.custom-cursor,.custom-cursor a,.custom-cursor button{cursor:none}}
 
 .boot{position:fixed;inset:0;z-index:10020;background:#030306;display:grid;place-items:center;overflow:hidden;transition:opacity .9s ease,visibility .9s ease}
 .boot.done{opacity:0;visibility:hidden}
@@ -179,3 +179,54 @@ body[data-mode="respect"] .mode-dot{background:var(--cyan);box-shadow:0 0 16px v
 
 @media(max-width:900px){.warning-card{grid-template-columns:1fr}.headphone-portrait{min-height:420px;border-right:0;border-bottom:3px solid #08080c}.birthday-stage{grid-template-columns:1fr}.birthday-copy{text-align:center}.birthday-name{margin-left:auto;margin-right:auto}.birthday-copy p{margin-left:auto;margin-right:auto}.birthday-visual{height:680px;min-height:680px}.food-character{position:relative;right:auto;bottom:auto;width:min(100%,430px);margin:0 auto 30px;transform:none}.food-test{max-width:100%;margin:auto}.real-talk{grid-template-columns:1fr}.message-art{position:relative;top:auto;height:min(72vh,680px)}}
 @media(max-width:700px){.origin-art{height:62svh;margin-bottom:52px}.origin-art-ui{left:14px;right:14px;bottom:14px;flex-direction:column;gap:4px}.arc-card{width:100%!important;min-height:520px;height:68svh!important}.arc-copy{padding:22px}.birthday-drop{padding-top:110px;padding-bottom:70px}.birthday-stage{min-height:0}.birthday-copy h2{font-size:13vw}.birthday-name{width:100%;margin-bottom:4px}.birthday-visual{height:580px;min-height:580px;margin-top:18px}.birthday-balloons{width:90%;right:-22%;top:5%}.birthday-26{width:80%;left:-5%;top:30%}.birthday-crown{width:42%;left:12%;top:4%}.birthday-gift{width:58%;right:0;bottom:2%}.birthday-new-headphones{width:52%;right:4%;bottom:15%}.birthday-cake{width:80%;left:-11%;bottom:4%}.birthday-candles{width:34%;left:12%;bottom:23%}.birthday-logo{width:27%;right:-2%;top:46%}.gift-caption{left:0;right:0;font-size:8px;flex-direction:column;gap:5px}.birthday-balloon{width:120px}.message-art{height:68svh}.final-character{object-position:50% 20%}.final-confetti{opacity:.24}}
+
+/* Accessible controls and progressive enhancement */
+.boot{display:none}.js-ready .boot{display:grid}
+.enter-sound{margin-top:12px;background:transparent;color:var(--text)}
+.boot-hint{font-size:12px;color:var(--muted);line-height:1.5}
+.topbar{position:fixed;align-items:center;gap:16px;background:linear-gradient(#050509ee,#05050966);padding-top:max(12px,env(safe-area-inset-top));}
+.chapter-nav{display:flex;gap:18px;pointer-events:auto;font-size:12px;margin-left:auto}
+.chapter-nav a{padding:12px 0;color:#d5d5de}
+.chapter-nav a:hover{color:var(--cyan)}
+section[id],main{scroll-margin-top:100px}
+.skip-link{position:fixed;left:20px;top:10px;z-index:11000;padding:12px;background:#fff;color:#050509;transform:translateY(-180%)}
+.skip-link:focus{transform:none}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:5px}
+.console-form input:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.hero-title:focus,main:focus{outline:none}
+.bar i{width:var(--v)}
+.route-line i{height:100%}
+.arc-strip{width:100%;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:0;padding-bottom:16px}
+.arc-card{flex-shrink:0;scroll-snap-align:start}
+.arc-strip.is-scroll-animated{width:max-content;overflow:visible;scroll-snap-type:none;padding-right:20vw}
+.achievement-toast{position:fixed;z-index:10030;bottom:max(24px,env(safe-area-inset-bottom));left:50%;transform:translate(-50%,20px);width:max-content;max-width:calc(100vw - 36px);padding:16px 22px;border:1px solid var(--green);background:#0b1513;color:#dffff0;font-size:14px;line-height:1.5;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s}
+.achievement-toast.visible{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.unlocked-achievement{border-color:var(--green)}
+.unlocked-achievement small,#headphonePatch{color:var(--green)}
+#headphonePatch:not(:empty){line-height:1.5}
+.gift-action:disabled{opacity:.75;cursor:default}
+#consoleOutput{max-height:360px;overflow:auto}
+@media(max-width:900px){
+ .topbar{flex-wrap:wrap;gap:4px 12px}
+ .top-actions{margin-left:auto}
+ .mode-switch span:last-child,.music-btn span:last-child{display:inline}
+ .mode-switch,.music-btn{min-height:44px;font-size:9px}
+ .chapter-nav{order:3;width:100%;justify-content:center;gap:26px;font-size:12px}
+ .chapter-nav a{padding:10px 0}
+}
+@media(max-width:700px){
+ .arc-strip{overflow:visible;scroll-snap-type:none}
+ .arc-card{min-height:400px;height:58svh!important;max-height:540px}
+ .boot-card{padding:24px}
+ .boot h1{margin:24px 0}
+ .boot-log{font-size:9px;min-height:110px}
+ .birthday-visual{height:520px;min-height:520px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+ body,a,button{cursor:auto!important}
+ .cursor-dot,.cursor-ring,.target{display:none!important}
+ .hero-video-wrap,.tilt-card{transform:none!important}
+ .hero-video-wrap.frames-ready .hero-canvas{opacity:0}
+ .hero-video-wrap.frames-ready .hero-video{opacity:1}
+}
