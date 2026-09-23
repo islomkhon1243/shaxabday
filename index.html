@@ -1,530 +1,313 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>С Днём Рождения, Шахзод!</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@400;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Rubik', sans-serif;
-      background: linear-gradient(135deg, #ffb6ec, #9ec9ff);
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    /* Анимированный фон */
-    .bg-animation {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-    .heart {
-      position: absolute;
-      font-size: 24px;
-      color: rgba(255,255,255,0.6);
-      animation: floatUp 8s linear infinite;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 20px 30px 20px;
-    }
-    header h1 {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 28px;
-      color: #fff;
-      text-shadow: 0 0 10px #ff6ec4;
-      margin-bottom: 20px;
-      animation: glow 2s infinite alternate;
-    }
-	header h2 {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 18px;
-      color: #fff;
-      text-shadow: 0 0 10px #ff6ec4;
-      margin-top: 30px;
-      animation: glow 2s infinite alternate;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff6ec4; }
-      to { text-shadow: 0 0 25px #6e9fff; }
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px 40px;
-    }
-    /* Живость карточек */
-	.card {
-	  background: rgba(255,255,255,0.1);
-	  border-radius: 16px;
-	  overflow: hidden;
-	  position: relative;
-	  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-	  transition: transform 0.4s ease, box-shadow 0.4s ease;
-	  animation: float 6s ease-in-out infinite;
-	  transform-style: preserve-3d;
-	}
-	.card:hover {
-	  transform: rotateY(6deg) rotateX(3deg) scale(1.05);
-	  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-	}
-    .card img {
-	  width: 100%;
-	  height: 700px;
-	  object-fit: cover;
-	  animation: imageMove 12s ease-in-out infinite;
-	  transition: transform 0.3s;
-	}
-	.card:hover img {
-	  transform: scale(1.12);
-}
-    .card h3 {
-      text-align: center;
-      padding: 15px;
-      font-size: 18px;
-      background: rgba(0,0,0,0.4);
-    }
-
-    /* ===== Сарказм блок ===== */
-    .sarcasm {
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .sarcasm h2 {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 22px;
-      margin-bottom: 30px;
-      color: #fff;
-      text-shadow: 0 0 10px #000;
-    }
-    .sarcasm-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .sarcasm-card {
-      width: 250px;
-      height: 150px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      padding: 15px;
-      cursor: pointer;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      perspective: 1000px;
-      position: relative;
-    }
-    .sarcasm-card span {
-      display: block;
-      transform: rotateY(0deg);
-      transition: transform 0.6s;
-    }
-    .sarcasm-card:hover span {
-      transform: rotateY(360deg);
-    }
-	
-	/* Новый блок воспоминаний */
-    .memories { padding: 50px 20px; }
-    .memories h2 {
-      text-align: center; font-family: 'Press Start 2P', cursive;
-      font-size: 22px; margin-bottom: 30px; color: #fff; text-shadow: 0 0 10px #000;
-    }
-    .memories-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px; padding: 0 40px;
-    }
-    .memory-card {
-	  background: rgba(255,255,255,0.08);
-	  border-radius: 14px;
-	  overflow: hidden;
-	  position: relative;
-	  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-	  animation: memoryFloat 7s ease-in-out infinite;
-	  transition: transform 0.4s ease, box-shadow 0.4s ease;
-	}
-	.memory-card:hover {
-	  transform: scale(1.05) rotate(1deg);
-	  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-	}
-    .memory-card img,
-	.memory-card video {
-	  width: 100%;
-	  height: 200px;
-	  object-fit: cover;
-	  animation: memoryPulse 10s ease-in-out infinite;
-	  transition: transform 0.3s;
-	}
-	.memory-card:hover img,
-	.memory-card:hover video {
-	  transform: scale(1.08);
-	}
-    .memory-card p { padding: 10px; text-align: center; font-size: 14px; background: rgba(0,0,0,0.4); }
-	
-	/* Lightbox стили */
-  .lightbox {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.3s;
-  }
-  .lightbox-content img,
-  .lightbox-content video {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  }
-  .close {
-    position: absolute;
-    top: 20px; right: 30px;
-    font-size: 40px;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .close:hover { color: #ff6ec4; }
-  @keyframes fadeIn { from {opacity:0} to {opacity:1} }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 14px;
-      background: rgba(0,0,0,0.2);
-    }
-	
-	.music-hint {
-      font-size: 16px;
-      color: #fff;
-      margin-top: 10px;
-      cursor: pointer;
-      text-shadow: 0 0 5px #000;
-      transition: transform 0.2s;
-    }
-    .music-hint:hover { transform: scale(1.1); color: #ffe066; }
-	
-	/* Анимация для карточек */
-	@keyframes float {
-	  0%   { transform: translateY(0px) rotate(0deg); }
-	  25%  { transform: translateY(-6px) rotate(-1deg); }
-	  50%  { transform: translateY(0px) rotate(0deg); }
-	  75%  { transform: translateY(6px) rotate(1deg); }
-	  100% { transform: translateY(0px) rotate(0deg); }
-	}
-
-	/* Анимация для картинок */
-	@keyframes imageMove {
-	  0%   { transform: scale(1.05) translate(0px, 0px); }
-	  25%  { transform: scale(1.08) translate(5px, -5px); }
-	  50%  { transform: scale(1.05) translate(0px, 0px); }
-	  75%  { transform: scale(1.08) translate(-5px, 5px); }
-	  100% { transform: scale(1.05) translate(0px, 0px); }
-	}
-	
-	@keyframes memoryFloat {
-	  0%   { transform: translateY(0px); }
-	  50%  { transform: translateY(-8px); }
-	  100% { transform: translateY(0px); }
-	}
-
-	/* Анимация пульсации фото/видео */
-	@keyframes memoryPulse {
-	  0%   { transform: scale(1) rotate(0deg); }
-	  25%  { transform: scale(1.03) rotate(-1deg); }
-	  50%  { transform: scale(1) rotate(0deg); }
-	  75%  { transform: scale(1.03) rotate(1deg); }
-	  100% { transform: scale(1) rotate(0deg); }
-	}
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050509" />
+  <title>Shaxa // LEVEL 26</title>
+  <meta name="description" content="Персональный birthday experience для Шахи. Level 26 unlocked." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="is-locked" data-mode="roast">
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
 
-  <!-- Фоновые сердечки -->
-  <div class="bg-animation"></div>
-  
-  <audio id="birthdayAudio" src="music/opening.mp3" preload="auto"></audio>
+  <div class="boot" id="boot">
+    <div class="boot-grid"></div>
+    <div class="boot-card">
+      <div class="boot-label"><span class="pulse"></span> BIRTHDAY OS / BUILD 26.09.2026</div>
+      <h1>Shaxa<br><span>// LEVEL 26</span></h1>
+      <div class="boot-log" id="bootLog" aria-live="polite"></div>
+      <button class="enter-btn magnetic" id="enterBtn" type="button">
+        <span>ENTER SYSTEM</span>
+      </button>
+    </div>
+  </div>
 
-  <header>
-    <h1>🎉 Шаха, Шахинина, Шахзода, с 25-летием! 🎉</h1>
-    <p>6 лет дружбы, сотни воспоминаний, и впереди ещё больше!</p>
-    <!-- Подпись для музыки -->
-    <div id="musicHint" class="music-hint">🎵 Нажми сюда, чтобы включить песню 🎵</div>
-    <h2>Что из себя представляет Шаха:</h2>
+  <header class="topbar">
+    <a class="brand" href="#hero" aria-label="Shaxa Level 26">S//26</a>
+    <div class="top-actions">
+      <button class="mode-switch magnetic" id="modeSwitch" type="button" aria-label="Переключить режим текста">
+        <span class="mode-dot"></span><span id="modeLabel">ROAST MODE</span>
+      </button>
+      <button class="music-btn magnetic" id="musicBtn" type="button" aria-label="Музыка">
+        <span class="eq"><i></i><i></i><i></i></span><span id="musicLabel">MUSIC OFF</span>
+      </button>
+    </div>
   </header>
 
-  <section class="gallery">
-    <div class="card">
-      <img src="images/anime_vibe.jpg" alt="anime girl">
-      <h3>Аниме вайб</h3>
-    </div>
-    <div class="card">
-      <img src="images/cat_girl.jpg" alt="cat girl">
-      <h3>Кошко-девочки</h3>
-    </div>
-    <div class="card">
-      <img src="images/maid_outfit.jpg" alt="maid outfit">
-      <h3>Мейдо стиль</h3>
-    </div>
-    <div class="card">
-      <img src="images/friends.jpg" alt="friends">
-      <h3>Дружба навсегда</h3>
-    </div>
-  </section>
-  
-  <!-- Сарказм Corner -->
-  <section class="sarcasm">
-    <h2>Сарказм Corner</h2>
-    <div class="sarcasm-list" id="sarcasmList"></div>
-  </section>
-  
-   <!-- Галерея воспоминаний -->
-  <section class="memories">
-    <h2>Наши воспоминания</h2>
-    <div class="memories-grid">
-      <div class="memory-card">
-        <img src="images/photo1.jpg" alt="mem1" class="memory-item">
-        <p>Когда мы думали, что будем серьёзными взрослыми… ха-ха, нет.</p>
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-video-wrap" id="heroScene">
+        <video id="heroVideo" class="hero-video" muted playsinline preload="auto" poster="video_contact.jpg">
+          <source src="assets/shaxa_animation.mp4" type="video/mp4" />
+        </video>
+        <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="hero-shade"></div>
+        <div class="hero-grid"></div>
+        <div class="scanline"></div>
+        <div class="target" id="target" aria-hidden="true"><span></span></div>
       </div>
-      <!-- 
-	  <div class="memory-card">
-        <video src="videos/memory1.mp4" controls></video>
-        <p>Этот момент достоин Оскара за лучший мемный сюжет.</p>
-      </div>
-	  -->
-      <div class="memory-card">
-        <img src="images/photo2.jpg" alt="mem2" class="memory-item">
-        <p>Тот день, когда даже стол был счастливее нас.</p>
-      </div>
-	  <!--
-      <div class="memory-card">
-        <video src="videos/memory2.mp4" controls></video>
-        <p>Хроники эпичной вечеринки: режиссёрская версия.</p>
-      </div>
-	  -->
-	  <div class="memory-card">
-        <img src="images/photo3.jpg" alt="mem2" class="memory-item">
-        <p>Рисковать жизнями ради незабываемых эмоций.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo4.jpg" alt="mem2" class="memory-item">
-        <p>Когда получили бумажные подставки но с таким шумом в Бахчисарае.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo5.jpg" alt="mem2" class="memory-item">
-        <p>Ждали малолетнего умника сдающего тест на проверку ориентации.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo6.jpg" alt="mem2" class="memory-item">
-        <p>Первая встреча в Шыме, за то какая.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo7.jpg" alt="mem2" class="memory-item">
-        <p>Когда удача на твоей стороне.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo8.jpg" alt="mem2" class="memory-item">
-        <p>Редкий кадр: человек впервые получает премию в натуральной валюте..</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo9.jpg" alt="mem2" class="memory-item">
-        <p>Фото сделано за секунду до того, как его приняли за туриста из 2007-го..</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo10.jpg" alt="mem2" class="memory-item">
-        <p>Кадр из нового аниме: ‘Парень, которого предали капли’.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo11.jpg" alt="mem2" class="memory-item">
-        <p>Мама сказала: ‘Учись ради диплома’, а теперь диплом сказал: ‘Удачи искать работу’.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo12.jpg" alt="mem2" class="memory-item">
-        <p>Фотограф сказал: ‘Будь собой’… он и стал.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo13.jpg" alt="mem2" class="memory-item">
-        <p>Фото, где каждый думает: ‘Ну хоть я выгляжу нормально’ — но нет.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo14.jpg" alt="mem2" class="memory-item">
-        <p>Когда камера сказала ‘не сегодня, бро’ и ты поверил.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo15.jpg" alt="mem2" class="memory-item">
-        <p>Собрались командой, но кошельки нас предали.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo16.jpg" alt="mem2" class="memory-item">
-        <p>Когда терминал круче всех твоих навыков в университете.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo17.jpg" alt="mem2" class="memory-item">
-        <p>Военные машины: круто. Я: пытаюсь влезть в кадр, но не очень получается.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo18.jpg" alt="mem2" class="memory-item">
-        <p>Когда почувствовал себя богаче всех друзей… на 5 секунд.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo19.jpg" alt="mem2" class="memory-item">
-        <p>Кубок в руках, а мозги где-то в другом месте.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo20.jpg" alt="mem2" class="memory-item">
-        <p>Фото туриста: кажется, наслаждается видами, а на деле думает про перекус.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo21.jpg" alt="mem2" class="memory-item">
-        <p>Шахзод готов: костюм блестит, а внутренний подросток плачет.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo22.jpg" alt="mem2" class="memory-item">
-        <p>Когда думал, что встретишь королеву жизни, а встретил корову.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo23.jpg" alt="mem2" class="memory-item">
-        <p>Тройка героев, но эпическое приключение только в голове.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo24.jpg" alt="mem2" class="memory-item">
-        <p>Наисчастливейшее фото из Шыма.</p>
-      </div>
-	  <div class="memory-card">
-        <img src="images/photo25.jpg" alt="mem2" class="memory-item">
-        <p>Когда кинули двух друзей и злорадствуют.</p>
-      </div>
-    </div>
-  </section>
-  
-  <div class="lightbox" id="lightbox">
-	  <span class="close">&times;</span>
-	  <div class="lightbox-content"></div>
-	</div>
 
-  <footer>
-    Сделано с ❤️ специально для моего брата
-  </footer>
+      <div class="hero-ui">
+        <div class="hero-kicker reveal">SUBJECT_001 / BIRTHDAY PROTOCOL</div>
+        <h2 class="hero-title reveal">Shaxa <span>v26.0</span></h2>
+        <p class="hero-sub reveal" data-roast="26 лет. Каким-то чудом система всё ещё не требует полного переустановления." data-respect="26 лет. Новая версия человека, с которым уже слишком много общей истории.">26 лет. Каким-то чудом система всё ещё не требует полного переустановления.</p>
+        <div class="hero-meta reveal">
+          <span>26.09.2000</span><i></i><span>KENTAU → ALMATY</span><i></i><span>STATUS: ONLINE</span>
+        </div>
+      </div>
 
-  <script>
-  
-	const audio = document.getElementById('birthdayAudio');
-    const musicHint = document.getElementById('musicHint');
+      <div class="hero-corner left">CURSOR LINK<br><b id="cursorStatus">STANDBY</b></div>
+      <div class="hero-corner right">FRAME SYNC<br><b>1248 × 704</b></div>
+      <a class="scroll-cue" href="#profile">SCROLL TO UPDATE <span>↓</span></a>
+    </section>
 
-    musicHint.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        musicHint.textContent = "⏸ Нажми сюда, чтобы остановить песню";
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-        musicHint.textContent = "🎵 Нажми сюда, чтобы включить песню 🎵";
-      }
-    });
-	
-    // генерим сердечки
-    const bg = document.querySelector('.bg-animation');
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '♥';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
-      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
-      bg.appendChild(heart);
-      setTimeout(() => heart.remove(), 8000);
-    }
-    setInterval(createHeart, 500);
-	
-	// Сарказм фразы
-    const sarcasmPhrases = [
-      "25 лет? Поздравляю, теперь твой организм официально в разделе 'б/у'.",
-      "С днюхой! Ты уже слишком стар для ТикТока, но ещё слишком молод для пенсионного.",
-      "25 лет — это когда 'ещё рано' и 'уже поздно' звучат одинаково.",
-      "Шахзод, будь спокоен: кризис среднего возраста уже стоит в очереди.",
-      "Поздравляю! Теперь твоя главная суперсила — это болеть после одного бокала.",
-      "25 — возраст, когда ты ещё молодой, но уже начинаешь говорить 'в наше время'.",
-      "С днюхой! Теперь ты официально кандидат на фразу 'раньше трава была зеленее'.",
-      "25 лет — то время, когда понимаешь: твои мемы уже 'олдскул'.",
-      "Поздравляю! Ты пережил четверть века и всё ещё не стал миллионером, норм.",
-      "С днюхой! Твои волосы ещё на месте, но время идёт, бро.",
-      "25 — это когда праздники уже утомляют больше, чем работа.",
-      "Шахзод, теперь твои шутки стареют быстрее, чем телефоны Samsung.",
-      "Поздравляю! 25 — идеальный возраст, чтобы делать вид, что ты взрослый.",
-      "С днюхой! Твоя молодость официально вышла в архив.",
-      "25 — возраст, когда студенческие долги ещё живы, а мечты уже мертвы.",
-      "Поздравляю! Ты ближе к ипотеке, чем к выпускному.",
-      "25 лет — это как 18, только с усталостью в глазах.",
-      "Шахзод, радуйся: в 25 ещё можно всю ночь не спать… и два дня потом умирать.",
-      "С днюхой! Пусть у тебя будет столько счастья, сколько багов в твоём коде.",
-      "25 лет — это не много. Просто вспомни, сколько у тебя было сил в 18 и поплачь.",
-      "Поздравляю! Твои планы на жизнь обновились: теперь это 'выжить'.",
-      "С днюхой! 25 — когда твой холодильник важнее, чем твоя популярность.",
-      "25 — это когда ты уже не веришь в Деда Мороза, но веришь в налоговую.",
-      "Поздравляю! В 25 ты всё ещё можешь смотреть аниме и делать вид, что это исследование культуры.",
-      "Шахзод, 25 — это уровень: 'ещё не женат, но уже спрашивают, когда свадьба'."
-    ];
+    <section class="profile section" id="profile">
+      <div class="section-head">
+        <div class="eyebrow">01 / PLAYER PROFILE</div>
+        <h2>Система идентифицировала<br><em>одного высокого узбека.</em></h2>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-card glass tilt-card">
+          <div class="profile-id">PLAYER_ID: Shaxa</div>
+          <div class="avatar-placeholder profile-visual">
+            <img src="assets/generated/player-profile.jpg" alt="Шаха — player profile" loading="lazy">
+            <div class="profile-scan"></div>
+            <div class="profile-lock"><span>IDENTITY LOCK</span><b>99.8%</b></div>
+          </div>
+          <div class="profile-badges">
+            <span>LVL 26</span><span>DEV</span><span>MARRIED</span>
+          </div>
+        </div>
+        <div class="stats glass">
+          <div class="stat"><div><span>Рост</span><b data-roast="Подозрительно высокий" data-respect="Выше среднего">Подозрительно высокий</b></div><div class="bar"><i style="--v:96%"></i></div></div>
+          <div class="stat"><div><span>Любознательность</span><b>100%</b></div><div class="bar"><i style="--v:100%"></i></div></div>
+          <div class="stat"><div><span>Anime / Manga database</span><b>87%</b></div><div class="bar"><i style="--v:87%"></i></div></div>
+          <div class="stat"><div><span>Spicy food resistance</span><b>92%</b></div><div class="bar"><i style="--v:92%"></i></div></div>
+          <div class="stat"><div><span>Вероятность купить новые наушники</span><b>2%</b></div><div class="bar danger"><i style="--v:2%"></i></div></div>
+          <div class="stat"><div><span>Способность спорить со мной</span><b>∞</b></div><div class="bar"><i style="--v:100%"></i></div></div>
+        </div>
+      </div>
+    </section>
 
-    const sarcasmList = document.getElementById('sarcasmList');
-    sarcasmPhrases.forEach(text => {
-      const card = document.createElement('div');
-      card.classList.add('sarcasm-card');
-      card.innerHTML = `<span>${text}</span>`;
-      sarcasmList.appendChild(card);
-    });
-	
-	// Lightbox
-	  const lightbox = document.getElementById('lightbox');
-	  const lightboxContent = lightbox.querySelector('.lightbox-content');
-	  const closeBtn = lightbox.querySelector('.close');
+    <section class="origin section" id="origin">
+      <div class="section-head compact">
+        <div class="eyebrow">02 / ORIGIN STORY</div>
+        <h2>Spawn point:<br><em>Кентау.</em></h2>
+      </div>
+      <div class="origin-art reveal-media">
+        <img src="assets/generated/origin-kentau.jpg" alt="Origin — Kentau" loading="lazy">
+        <div class="origin-art-ui"><span>SPAWN POINT</span><b>KENTAU // 2000</b></div>
+      </div>
+      <div class="route" aria-label="Хронология Шахи">
+        <div class="route-line"><i></i></div>
+        <article class="route-node"><span>01</span><div><small>2000</small><h3>КЕНТАУ</h3><p>Персонаж заспавнился. Патчноутов, к сожалению, не сохранилось.</p></div></article>
+        <article class="route-node"><span>02</span><div><small>2019</small><h3>МУИТ / АЛМАТЫ</h3><p>Начался университетский arc. Программирование, дедлайны и сомнительные жизненные решения.</p></div></article>
+        <article class="route-node special"><span>03</span><div><small>2019 / FIRST CONTACT</small><h3>«НЕТ»</h3><p>Я: узнаю, что он тоже узбек, пытаюсь познакомиться.<br>Шаха, используя 100% своего социального интеллекта: <strong>«Нет».</strong></p></div></article>
+        <article class="route-node"><span>04</span><div><small>NOW</small><h3>KASPI / ALMATY</h3><p data-roast="Теперь работает в Kaspi и делает вид, что он серьёзный взрослый человек." data-respect="Теперь работает в Kaspi и строит взрослую жизнь в Алматы.">Теперь работает в Kaspi и делает вид, что он серьёзный взрослый человек.</p></div></article>
+        <article class="route-node"><span>05</span><div><small>2026</small><h3>LEVEL 26</h3><p>Marriage arc активирован. Friendship DLC всё ещё поддерживается.</p></div></article>
+      </div>
+    </section>
 
-	  document.querySelectorAll('.memory-item').forEach(item => {
-		item.addEventListener('click', () => {
-		  lightbox.style.display = 'flex';
-		  lightboxContent.innerHTML = ''; // очистить
-		  if (item.tagName === 'IMG') {
-			const img = document.createElement('img');
-			img.src = item.src;
-			lightboxContent.appendChild(img);
-		  } else if (item.tagName === 'VIDEO') {
-			const video = document.createElement('video');
-			video.src = item.src;
-			video.controls = true;
-			video.autoplay = true;
-			lightboxContent.appendChild(video);
-		  }
-		});
-	  });
+    <section class="first-contact section dark-panel">
+      <div class="quote-scene">
+        <div class="quote-label">ARCHIVE // 2019</div>
+        <p class="quote-me">— Брат, ты тоже узбек? Давай познакомимся...</p>
+        <p class="quote-him">— Нет.</p>
+        <div class="quote-after">И вот после такого начала мы почему-то дружим уже много лет.</div>
+      </div>
+    </section>
 
-	  // Закрытие
-	  closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
-	  lightbox.addEventListener('click', (e) => {
-		if (e.target === lightbox) lightbox.style.display = 'none';
-	  });
-  </script>
+    <section class="git section" id="git">
+      <div class="section-head compact">
+        <div class="eyebrow">03 / FRIENDSHIP REPOSITORY</div>
+        <h2>История проекта,<br><em>который никто не планировал.</em></h2>
+      </div>
+      <div class="terminal glass" data-terminal="history">
+        <div class="terminal-top"><span></span><span></span><span></span><b>friendship — zsh</b></div>
+        <div class="terminal-body">
+          <p><i>$</i> git log --oneline --all</p>
+          <p><b class="hash">a7c2019</b> feat: получил ответ «Нет», но почему-то не ушёл</p>
+          <p><b class="hash">e1d2020</b> feat: survived university deadlines together</p>
+          <p><b class="hash">b4d2021</b> fix: очередной бессмысленный спор закрыт сам собой</p>
+          <p><b class="hash">f8a2023</b> chore: продолжаем издеваться друг над другом</p>
+          <p><b class="hash">c2f2026</b> feat: marriage mode unlocked</p>
+          <p><b class="hash">fff2026</b> release: Shaxa v26.0</p>
+          <p class="command"><i>$</i> git status</p>
+          <p class="output">friendship: <strong>stable</strong><br>breaking changes: <strong>none</strong><br>unresolved bugs: <strong>много, но всем плевать</strong></p>
+          <p class="blink-line"><i>$</i> <span class="block-cursor"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="headphones section" id="headphones">
+      <div class="warning-card">
+        <div class="headphone-portrait"><img src="assets/generated/headphones-old.jpg" alt="Легендарные старые наушники" loading="lazy"><span>LEGACY HARDWARE</span></div>
+        <div class="warning-icon">!</div>
+        <div class="warning-copy">
+          <small>CRITICAL HARDWARE ALERT</small>
+          <h2>ШАХА,<br>КУПИ УЖЕ НОВЫЕ<br><em>НАУШНИКИ.</em></h2>
+          <p>Этому сайту понадобились современные браузерные технологии, GPU-ускорение и анимационный движок. А твои наушники всё ещё работают на технологии «авось».</p>
+          <div class="hardware-status"><span>HEADPHONES HEALTH</span><b>3%</b></div>
+          <div class="healthbar"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="arcs section" id="arcs">
+      <div class="section-head">
+        <div class="eyebrow">04 / CHARACTER ARCS</div>
+        <h2>Every great character<br><em>has an arc.</em></h2>
+      </div>
+      <div class="arc-strip">
+        <article class="arc-card"><img src="assets/generated/university.jpg" alt="University arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">I</div><div class="arc-copy"><small>2019</small><h3>UNIVERSITY<br>ARC</h3><p>МУИТ. Код. Дедлайны. Бессонница. Начало лора.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/developer.jpg" alt="Developer arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">II</div><div class="arc-copy"><small>??</small><h3>DEVELOPER<br>ARC</h3><p>Гуглить ошибку 40 минут, а потом найти пропущенную запятую.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/kaspi.jpg" alt="Kaspi arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">III</div><div class="arc-copy"><small>NOW</small><h3>KASPI<br>ARC</h3><p>Corporate skin unlocked. Внутри всё тот же человек с мангой.</p></div></article>
+        <article class="arc-card"><img src="assets/generated/marriage.jpg" alt="Marriage arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">IV</div><div class="arc-copy"><small>NEW</small><h3>MARRIAGE<br>ARC</h3><p>Multiplayer mode enabled. Difficulty adjusted automatically.</p></div></article>
+        <article class="arc-card featured"><img src="assets/generated/legendary.jpg" alt="Level 26 arc" loading="lazy"><div class="arc-overlay"></div><div class="arc-no">V</div><div class="arc-copy"><small>26.09.2026</small><h3>LEVEL 26<br>ARC</h3><p>Новая глава. Старые приколы. Те же ужасные наушники.</p></div></article>
+      </div>
+    </section>
+
+    <section class="achievements section">
+      <div class="section-head compact">
+        <div class="eyebrow">05 / ACHIEVEMENTS</div>
+        <h2>Редкие достижения,<br><em>полученные случайно.</em></h2>
+      </div>
+      <div class="achievement-grid">
+        <article class="achievement visual-achievement"><img src="assets/generated/iitu.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>LEGENDARY</small><h3>SURVIVED МУИТ</h3><p>Описание засекречено во избежание повторной травмы.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/spice.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>EPIC</small><h3>SPICE RESISTANCE</h3><p>Ест вещи, которые нормальный человек сначала проверит на токсичность.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/anime.jpg" alt="Anime addiction" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>RARE</small><h3>MANGA DATABASE</h3><p>Знания, которые в резюме почему-то не помещаются.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/marriage2.jpg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div>><span></span><div><small>LEGENDARY</small><h3>MARRIED MAN</h3><p>Крупнейшее обновление системы за последние годы.</p></div></article>
+        <article class="achievement visual-achievement locked-achievement"><img src="assets/generated/new-headphones.png" alt="Новые наушники" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>IMPOSSIBLE</small><h3>NEW HEADPHONES</h3><p>До сих пор не разблокировано.</p></div></article>
+        <article class="achievement visual-achievement"><img src="assets/generated/manga.jpeg" alt="Spice resistance" loading="lazy"><div class="achievement-shade"></div><span></span><div><small>MYTHIC</small><h3>STILL FRIENDS</h3><p>Несмотря на «Нет» в первой же кат-сцене.</p></div></article>
+      </div>
+    </section>
+
+    <section class="food section" id="food">
+      <div class="food-bg-word">EAT</div>
+      <div class="food-character reveal-media"><img src="assets/generated/food.jpg" alt="Shaxa food explorer" loading="lazy"><span>FOOD BOSS // 99.8%</span></div>
+      <div class="section-head compact">
+        <div class="eyebrow">06 / FOOD DATABASE</div>
+        <h2>Если выглядит странно,<br>остро и подозрительно — <em>надо попробовать.</em></h2>
+      </div>
+      <div class="food-test glass">
+        <div>
+          <small>NEURAL FOOD PREDICTION</small>
+          <h3>Would Shaxa eat this?</h3>
+          <p id="foodPrompt">Что-то острое, неизвестное и явно способное испортить завтрашний день.</p>
+        </div>
+        <div class="food-buttons">
+          <button type="button" class="choice magnetic" data-answer="yes">YES</button>
+          <button type="button" class="choice magnetic" data-answer="also">ALSO YES</button>
+        </div>
+        <div class="food-result" id="foodResult">AI CONFIDENCE: 99.8%</div>
+      </div>
+    </section>
+
+    <section class="bugs section" id="bugs">
+      <div class="section-head compact">
+        <div class="eyebrow">07 / KNOWN ISSUES</div>
+        <h2>Исправлять не будем.<br><em>Это уже features.</em></h2>
+      </div>
+      <div class="bug-list">
+        <article><span>BUG #001</span><h3>Спорим из-за полной фигни</h3><b>STATUS: WON'T FIX</b></article>
+        <article><span>BUG #002</span><h3>Издеваемся друг над другом</h3><b>STATUS: CORE FEATURE</b></article>
+        <article><span>BUG #003</span><h3>Иногда ругаемся</h3><b>STATUS: TEMPORARY</b></article>
+        <article><span>BUG #004</span><h3>Потом общаемся как ни в чём не бывало</h3><b>STATUS: WORKS AS INTENDED</b></article>
+        <article><span>BUG #005</span><h3>Наушники всё ещё не заменены</h3><b>STATUS: CRITICAL / IGNORED</b></article>
+      </div>
+    </section>
+
+    <section class="birthday-drop section" id="birthdayDrop">
+      <img class="birthday-confetti" src="assets/generated/confetti.png" alt="" aria-hidden="true">
+      <img class="birthday-balloon balloon-a" src="assets/generated/red-balloon.png" alt="" aria-hidden="true">
+      <img class="birthday-balloon balloon-b" src="assets/generated/red-balloon.png" alt="" aria-hidden="true">
+      <div class="birthday-stage">
+        <div class="birthday-copy">
+          <div class="eyebrow">08 / BIRTHDAY DROP</div>
+          <img class="birthday-name" src="assets/generated/shakhzod.png" alt="Shakhzod" loading="lazy">
+          <h2>26 YEARS OF<br><em>QUESTIONABLE DECISIONS.</em></h2>
+          <p>Раз уж тебе 26, сайт обязан хотя бы попытаться выглядеть как нормальный день рождения.</p>
+          <button class="gift-action magnetic" id="giftAction" type="button">OPEN YOUR “GIFT”</button>
+        </div>
+        <div class="birthday-visual" id="birthdayVisual">
+          <img class="birthday-balloons" src="assets/generated/balloons.png" alt="Birthday balloons" loading="lazy">
+          <img class="birthday-26" src="assets/generated/26.png" alt="26" loading="lazy">
+          <img class="birthday-crown" src="assets/generated/crown.png" alt="Birthday crown" loading="lazy">
+          <img class="birthday-gift" id="giftBox" src="assets/generated/giftbox.png" alt="Birthday gift" loading="lazy">
+          <img class="birthday-new-headphones" id="giftHeadphones" src="assets/generated/new-headphones.png" alt="New headphones" loading="lazy">
+          <img class="birthday-cake" src="assets/generated/cake.png" alt="Birthday cake" loading="lazy">
+          <img class="birthday-candles" src="assets/generated/candles.png" alt="26 candles" loading="lazy">
+          <img class="birthday-logo" src="assets/generated/logo.png" alt="Level 26 emblem" loading="lazy">
+          <div class="gift-caption" id="giftCaption"><b>LEGENDARY DROP</b><span>Нажми на подарок. Ну хотя бы виртуальные наушники у тебя будут нормальные.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="console-section section" id="console">
+      <div class="section-head compact">
+        <div class="eyebrow">09 / INTERACTIVE CONSOLE</div>
+        <h2>Поковыряйся в системе.<br><em>Ты же программист.</em></h2>
+      </div>
+      <div class="terminal interactive glass">
+        <div class="terminal-top"><span></span><span></span><span></span><b>Shaxa@26 — bash</b></div>
+        <div class="terminal-body" id="consoleOutput">
+          <p>BirthdayOS 26.0.0 — type <strong>help</strong></p>
+        </div>
+        <form class="console-form" id="consoleForm" autocomplete="off">
+          <label for="consoleInput">Shaxa@26:~$</label>
+          <input id="consoleInput" name="command" spellcheck="false" autocomplete="off" />
+        </form>
+      </div>
+    </section>
+
+    <section class="real-talk section" id="message">
+      <div class="message-art"><img src="assets/generated/manga.jpeg" alt="Shaxa level 26" loading="lazy"></div>
+      <div class="message-wrap">
+        <div class="eyebrow">10 / UNSCHEDULED SERIOUS MOMENT</div>
+        <p class="big-line">Ладно. На несколько секунд без издевательств.</p>
+        <p>С 2019-го уже успело поменяться дохрена всего: универ закончился, появились работа, взрослая жизнь, ответственность, у тебя теперь своя семья.</p>
+        <p>Но мне нравится, что между всем этим до сих пор можно написать тебе какую-нибудь фигню, поругаться, обсудить задачу, поугарать и через пять минут снова вести себя так, будто ничего не произошло.</p>
+        <p data-roast="Ты один из тех редких долбоёбов, которых я реально рад встретить в жизни." data-respect="Ты один из тех редких людей, которых я реально рад встретить в жизни.">Ты один из тех редких долбоёбов, которых я реально рад встретить в жизни.</p>
+        <p>Желаю тебе здоровья, спокойствия дома, мощного роста в работе, денег столько, чтобы наконец перестать экономить на этих несчастных наушниках, и побольше вещей, от которых тебе реально интересно жить.</p>
+        <p class="final-message">Короче, с днём рождения, Шаха.<br><strong>26 тебе идёт. Наверное.</strong></p>
+      </div>
+    </section>
+
+    <section class="finale" id="finale">
+      <img class="final-confetti" src="assets/generated/confetti.png" alt="" aria-hidden="true">
+      <img class="final-character" src="assets/generated/legendary.jpg" alt="Shaxa level 26" loading="lazy">
+      <div class="final-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="final-content">
+        <div class="level-label">SYSTEM UPDATE COMPLETE</div>
+        <div class="level-number">26</div>
+        <h2>Shaxa v26.0<br><span>SUCCESSFULLY INSTALLED</span></h2>
+        <div class="patchnotes glass">
+          <small>PATCH NOTES</small>
+          <p><b>+</b> experience</p>
+          <p><b>+</b> family</p>
+          <p><b>+</b> career</p>
+          <p><b>+</b> more food</p>
+          <p><b>+</b> more adventures</p>
+          <p><b>−</b> headphone quality remains unchanged</p>
+        </div>
+        <p class="last-line">С днём рождения, брат. ❤️</p>
+      </div>
+    </section>
+  </main>
+
+  <audio id="bgMusic" loop preload="none">
+    <source src="assets/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
